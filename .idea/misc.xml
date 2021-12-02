@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/drawable/item_colot.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/expend.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/setting.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/statistic.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/tabMain.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/tab_expend.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/tab_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/tab_setting.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/tab_statistic.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/tab_wallet.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/layout/wallet.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/menu/navi.xml" value="0.36614583333333334" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
