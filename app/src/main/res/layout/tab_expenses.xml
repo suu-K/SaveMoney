@@ -3,89 +3,113 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginHorizontal="40dp"
-    android:layout_gravity="center_horizontal">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="left"
-        android:layout_marginTop="50dp">
-
-        <Button
-            android:id="@+id/btnCash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="3dp"
-            android:text="현금" />
-
-        <Button
-            android:id="@+id/btnDebit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="3dp"
-            android:text="체크카드" />
-
-        <Button
-            android:id="@+id/btnCredit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="3dp"
-            android:text="신용카드" />
-    </LinearLayout>
-
-    <LinearLayout
+    android:layout_gravity="center_horizontal"
+    android:paddingBottom="60dp">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/edtMoney"
-            android:layout_width="330dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:text="소비금액" />
-        <EditText
-            android:id="@+id/edtMemo"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:text="*상세 내용" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:text="지출 관리"></TextView>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="80dp">
+        android:layout_marginHorizontal="20dp">
 
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="330dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"/>
-        <Spinner
-            android:id="@+id/spinnerCard"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:visibility="invisible"/>
-        <Spinner
-            android:id="@+id/spinnerInstallmenet"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:visibility="invisible"/>
+            android:orientation="horizontal"
+            android:layout_gravity="left"
+            android:layout_marginTop="20dp">
 
+            <Button
+                android:id="@+id/btnCash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="3dp"
+                android:text="현금" />
+
+            <Button
+                android:id="@+id/btnDebit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="3dp"
+                android:text="체크카드" />
+
+            <Button
+                android:id="@+id/btnCredit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="3dp"
+                android:text="신용카드" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edtMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:text="소비금액" />
+            <EditText
+                android:id="@+id/edtMemo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*상세 내용" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="80dp">
+
+            <Spinner
+                android:id="@+id/spinnerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"/>
+            <Spinner
+                android:id="@+id/spinnerCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:visibility="invisible"/>
+            <Spinner
+                android:id="@+id/spinnerInstallmenet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnExpenses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 소비!"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"></Button>
     </LinearLayout>
-    <Button
-        android:id="@+id/btnExpenses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" 소비!"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="right"></Button>
 
 </LinearLayout>

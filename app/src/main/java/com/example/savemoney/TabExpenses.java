@@ -61,6 +61,7 @@ public class TabExpenses extends Fragment {
             public void onClick(View view) {
                 method = "현금";
                 installmentPeriod = 1;
+                interest = 0;
                 spinnerCard.setVisibility(View.INVISIBLE);
                 spinnerInstallment.setVisibility(View.INVISIBLE);
             }
@@ -71,6 +72,7 @@ public class TabExpenses extends Fragment {
             public void onClick(View view) {
                 method = "체크카드";
                 installmentPeriod = 1;
+                interest = 0;
                 spinnerCard.setVisibility(View.VISIBLE);
                 spinnerInstallment.setVisibility(View.INVISIBLE);
             }
@@ -80,6 +82,7 @@ public class TabExpenses extends Fragment {
             @Override
             public void onClick(View view) {
                 method = "신용카드";
+                interest = -1;
                 spinnerCard.setVisibility(View.VISIBLE);
                 spinnerInstallment.setVisibility(View.VISIBLE);
             }
@@ -102,7 +105,7 @@ public class TabExpenses extends Fragment {
                 cardList.add(cursorCard.getString(1));
             }
         }
-        final String[] installmentList = {"2개월(무이자)", "3개월(무이자)", "4개월(무이자)", "5개월(무이자)", "6개월(무이자)", "2개월","3개월","4개월","5개월","6개월","12개월","24개월"};
+        final String[] installmentList = {"일시불", "2개월(무이자)", "3개월(무이자)", "4개월(무이자)", "5개월(무이자)", "6개월(무이자)", "2개월","3개월","4개월","5개월","6개월","12개월","24개월"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categoryList);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, cardList);
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, installmentList);
@@ -142,6 +145,9 @@ public class TabExpenses extends Fragment {
                 if(installmentList[i].contains("무이자")){
                     interest = 0;
                     installmentPeriod = Integer.parseInt(installmentList[i].replaceAll("[^0-9]", ""));
+                }else if(installmentList[i].equals("일시불")){
+                    interest = 0;
+                    installmentPeriod = 1;
                 }else{
                     interest = -1;
                     installmentPeriod = Integer.parseInt(installmentList[i].replaceAll("[^0-9]", ""));
