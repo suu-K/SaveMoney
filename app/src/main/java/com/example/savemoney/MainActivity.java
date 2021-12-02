@@ -15,7 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     TabMain tabMain;
-    TabExpend tabExpend;
+    TabExpenses tabExpenses;
     TabSetting tabSetting;
     TabStatistic tabStatistic;
     TabWallet tabWallet;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         tabMain = new TabMain();
-        tabExpend = new TabExpend();
+        tabExpenses = new TabExpenses();
         tabSetting = new TabSetting();
         tabStatistic = new TabStatistic();
         tabWallet = new TabWallet();
@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, tabMain).commitAllowingStateLoss();
                         return true;
                     }
-                    case R.id.tabExpend:{
-                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout, tabExpend).commitAllowingStateLoss();
+                    case R.id.tabExpenses:{
+                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout, tabExpenses).commitAllowingStateLoss();
                         return true;
                     }
                     case R.id.tabStatistic:{
@@ -73,7 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE expend (" +
+            db.execSQL("CREATE TABLE cart (" +
+                    "id INTEGER PRIMARY KEY," +
+                    "name TEXT NOT NULL," +
+                    "category TEXT NOT NULL," +
+                    "interestRate INTEGER" +
+                    ");");
+            db.execSQL("CREATE TABLE expenses (" +
                     "id INTEGER PRIMARY KEY," +
                     "amount INTEGER NOT NULL," +
                     "category TEXT NOT NULL," +
@@ -83,7 +89,13 @@ public class MainActivity extends AppCompatActivity {
                     "installment INTEGER," +
                     "interest INTEGER," +
                     "monexpend INTEGER," +
-                    "FOREIGN KEY(card) REFERENCES card(id)" +
+                    "FOREIGN KEY(cardId) REFERENCES card(id)" +
+                    ");");
+            db.execSQL("CREATE TABLE cart (" +
+                    "id INTEGER PRIMARY KEY," +
+                    "name TEXT NOT NULL," +
+                    "category TEXT NOT NULL," +
+                    "interestRate INTEGER" +
                     ");");
         }
 

@@ -12,7 +12,7 @@
         android:title="메인" />
 
     <item
-        android:id="@+id/tabExpend"
+        android:id="@+id/tabExpenses"
         app:showAsAction="always"
         android:enabled="true"
         android:checked="true"

@@ -9,12 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class TabExpend extends Fragment {
+public class TabExpenses extends Fragment {
     ViewGroup viewGroup;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewGroup = (ViewGroup) inflater.inflate(R.layout.tab_expend,container,false);
+        viewGroup = (ViewGroup) inflater.inflate(R.layout.tab_expenses,container,false);
         return viewGroup;
     }
 
