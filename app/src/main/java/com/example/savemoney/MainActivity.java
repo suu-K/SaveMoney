@@ -64,47 +64,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
-    public class myDBHelper extends SQLiteOpenHelper {
-        public myDBHelper(Context context) {
-            super(context, "saveMoney", null, 1);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE cart (" +
-                    "id INTEGER PRIMARY KEY," +
-                    "name TEXT NOT NULL," +
-                    "category TEXT NOT NULL," +
-                    "interestRate INTEGER" +
-                    ");");
-            db.execSQL("CREATE TABLE expenses (" +
-                    "id INTEGER PRIMARY KEY," +
-                    "amount INTEGER NOT NULL," +
-                    "category TEXT NOT NULL," +
-                    "content TEXT," +
-                    "method TEXT NOT NULL," +
-                    "cardId INTEGER," +
-                    "installment INTEGER," +
-                    "interest INTEGER," +
-                    "monexpend INTEGER," +
-                    "FOREIGN KEY(cardId) REFERENCES card(id)" +
-                    ");");
-            db.execSQL("CREATE TABLE cart (" +
-                    "id INTEGER PRIMARY KEY," +
-                    "name TEXT NOT NULL," +
-                    "category TEXT NOT NULL," +
-                    "interestRate INTEGER" +
-                    ");");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS groupTBL");
-            onCreate(db);
-
-        }
-    }
-
 }
