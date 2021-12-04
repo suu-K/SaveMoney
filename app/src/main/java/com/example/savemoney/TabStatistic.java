@@ -23,7 +23,9 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TabStatistic extends Fragment {
     ViewGroup viewGroup;
@@ -33,7 +35,7 @@ public class TabStatistic extends Fragment {
     MyDBHelper myDBHelper;
     SQLiteDatabase db;
 
-    Button btnInsert, btnUpgrade;
+    Button btnInsert, btnUpgrade, btnUpdate;
 
     enum Type{ term, category, method };
     Type type = Type.term;
@@ -46,11 +48,16 @@ public class TabStatistic extends Fragment {
 
         btnInsert = (Button) viewGroup.findViewById(R.id.btnInsert);
         btnUpgrade = (Button) viewGroup.findViewById(R.id.btnUpgrade);
+        btnUpdate = (Button) viewGroup.findViewById(R.id.btnUpdate);
 
         myDBHelper = new MyDBHelper(getActivity());
         barChart = (BarChart) viewGroup.findViewById(R.id.barChart);
 
-        dataSetting(type, term, "2021-01-01", "2021-12-12");             //데이터 세팅
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Calendar c1 = Calendar.getInstance();
+        String strToday = sdf.format(c1.getTime());
+
+        dataSetting(type, term, "2021-01-01", strToday);             //데이터 세팅
         graphInitSetting();       //그래프 기본 세팅
         BarChartGraph(labelList, valList);
 
@@ -100,7 +107,7 @@ public class TabStatistic extends Fragment {
                             "'" + d.get(i) +
                             "');");
                 }
-                dataSetting(type, term, "2021-01-01", "2021-12-12");
+                dataSetting(type, term, "2021-01-01", "2021-12-30");
                 BarChartGraph(labelList, valList);
                 barChart.invalidate();
             }
@@ -112,6 +119,18 @@ public class TabStatistic extends Fragment {
                 myDBHelper.onUpgrade(db, 1, 2);
                 db.close();
                 dataSetting(type, term, "2021-01-01", "2021-12-31");
+                BarChartGraph(labelList, valList);
+                barChart.invalidate();
+            }
+        });
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                Calendar c1 = Calendar.getInstance();
+                String strToday = sdf.format(c1.getTime());
+                dataSetting(type, term, "2021-01-01", strToday);
                 BarChartGraph(labelList, valList);
                 barChart.invalidate();
             }

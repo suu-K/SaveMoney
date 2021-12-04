@@ -16,7 +16,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE card (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name TEXT NOT NULL," +
-                "isCredit BOOLEAN NOT NULL," +
+                "isCredit TEXT NOT NULL," +
                 "interestRate REAL" +
                 ");");
         db.execSQL("CREATE TABLE expenses (" +
