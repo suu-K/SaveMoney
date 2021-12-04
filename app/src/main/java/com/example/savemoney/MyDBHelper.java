@@ -16,7 +16,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE card (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name TEXT NOT NULL," +
-                "kinds TEXT NOT NULL," +
+                "isCredit BOOLEAN NOT NULL," +
                 "interestRate REAL" +
                 ");");
         db.execSQL("CREATE TABLE expenses (" +
@@ -40,6 +40,10 @@ public class MyDBHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name TEXT NOT NULL" +
                 ");");
+        db.execSQL("CREATE TABLE user (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "goal INTEGER NOT NULL" +
+                ");");
     }
 
     @Override
@@ -48,6 +52,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS expenses");
         db.execSQL("DROP TABLE IF EXISTS fixedExpenses");
         db.execSQL("DROP TABLE IF EXISTS category");
+        db.execSQL("DROP TABLE IF EXISTS user");
         onCreate(db);
     }
 }
