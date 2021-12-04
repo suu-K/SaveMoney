@@ -1,5 +1,6 @@
 package com.example.savemoney;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import java.text.SimpleDateFormat;
@@ -170,7 +172,17 @@ public class TabExpenses extends Fragment {
         btnExpenses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(edtMoney.getText().toString().equals("") || edtMoney.getText().toString() == null){
+                    AlertDialog.Builder dlgIdealSpend = new AlertDialog.Builder(getActivity());
+                    dlgIdealSpend.setTitle("소비 금액은 필수입니다.");
+                    final EditText editText = new EditText(getActivity());
+                    dlgIdealSpend.setView(editText);
+                    dlgIdealSpend.setPositiveButton("확인", null);
+                    dlgIdealSpend.show();
+                    return;
+                }
                 amount = Integer.parseInt(edtMoney.getText().toString());
+
                 int monExpend = amount / installmentPeriod;
                 memo = edtMemo.getText().toString();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
