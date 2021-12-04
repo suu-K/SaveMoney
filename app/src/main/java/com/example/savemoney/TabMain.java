@@ -86,6 +86,7 @@ public class TabMain extends Fragment {
     public void dataSetting(){
         labelList.clear();
         valList.clear();
+        int fixed = 0;
         db = myDBHelper.getReadableDatabase();
 
         Cursor cursor;
@@ -93,10 +94,17 @@ public class TabMain extends Fragment {
                 "WHERE strftime('%Y-%m', date) BETWEEN strftime('%Y-%m', 'now', '-4 months') AND strftime('%Y-%m', 'now', 'localtime') " +
                 "GROUP BY month;", null);
 
+        Cursor cursorMax = db.rawQuery("SELECT sum(amount) FROM fixedExpenses", null);
+
+        while(cursorMax.moveToNext()) {
+            fixed = cursorMax.getInt(0);
+        }
+
         while (cursor.moveToNext()) {
             labelList.add(cursor.getString(0));
-            valList.add(cursor.getInt(1));
+            valList.add(cursor.getInt(1) + fixed);
         }
+        cursorMax.close();
         cursor.close();
         db.close();
     }

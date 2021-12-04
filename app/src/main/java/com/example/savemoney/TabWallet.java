@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import org.w3c.dom.Text;
 
@@ -31,6 +32,7 @@ public class TabWallet extends Fragment {
     LinearLayout layoutCategory, layoutMethod, layoutFixedExpenses;
     MyDBHelper myHelper;
     SQLiteDatabase db;
+
 
     View dialog;
 
@@ -50,6 +52,25 @@ public class TabWallet extends Fragment {
 
         myHelper = new MyDBHelper(getActivity());
 
+        /*db= myHelper.getReadableDatabase();
+        Cursor cursorCategory = db.rawQuery("Select * from category", null);
+        ArrayList<String> categoryList = new ArrayList<String>();
+        if(cursorCategory.getCount()==0){
+            categoryList.add("등록된 카테고리가 없습니다.");
+        }else {
+            while (cursorCategory.moveToNext()) {
+                categoryList.add(cursorCategory.getString(1));
+            }
+        }
+
+        db.close();
+
+        final TextView arrayCategory[]=new TextView[categoryList.size()];
+
+        for(int i=0;i<categoryList.size();i++){
+            arrayCategory[i].setText(categoryList.get(i));
+            layoutCategory.addView(arrayCategory[i]);
+        }*/
 
         NumIdealSpend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,10 +84,10 @@ public class TabWallet extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         try {
                             int num = Integer.parseInt(editText.getText().toString());
-                            Toast.makeText(getActivity(), "변경되었습니다.", 1).show();
+                            Toast.makeText(getActivity(), "변경되었습니다.", Toast.LENGTH_SHORT).show();
                             NumIdealSpend.setText(editText.getText().toString() + " 원");
                         } catch (NumberFormatException e) {
-                            Toast.makeText(getActivity(), "숫자만 입력하세요.", 5).show();
+                            Toast.makeText(getActivity(), "숫자만 입력하세요.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -96,28 +117,42 @@ public class TabWallet extends Fragment {
         AddMethod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = View.inflate(getActivity(), R.layout.dialog_method, null);
-                AlertDialog.Builder dlgFixedExpenses = new AlertDialog.Builder(getActivity());
-                dlgFixedExpenses.setTitle("결재수단 추가");
-                dlgFixedExpenses.setView(dialog);
-                dlgFixedExpenses.setPositiveButton("입력", new DialogInterface.OnClickListener() {
+                DialogMethod dialog = DialogMethod.newInstance(new DialogMethod.MyDialogListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        db = myHelper.getWritableDatabase();
-                        db.close();
-                        Toast.makeText(getActivity(), "변경되었습니다.", Toast.LENGTH_LONG).show();
+                    public void myCallback(String name, String kinds) {
+                        if(name != null && kinds != null){
+                            db = myHelper.getWritableDatabase();
+                            db.execSQL("INSERT into card(name, isCredit) values('" + name + "', '" + kinds + "');");
+                            db.close();
+                        }
+                        else{
+                            AddMethod.setText("실패");
+                        }
                     }
                 });
-                dlgFixedExpenses.show();
+                dialog.show(getFragmentManager(), "addDialog");
             }
         });
-
+        Fragment fragment = this;
         AddFixedExpenses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DialogFixedExpenses dialog = DialogFixedExpenses.newInstance(new DialogFixedExpenses.MyDialogListener() {
+                    @Override
+                    public void myCallback(String name, int amount) {
+                        if(name != null) {
+                            db = myHelper.getWritableDatabase();
+                            db.execSQL("INSERT into fixedExpenses(name, amount) values('" + name + "', " + amount + ");");
+                            db.close();
+                        }
+                        else
+                            AddFixedExpenses.setText("실패");
+                    }
+                });
+                dialog.show(getFragmentManager(), "addDialog");
             }
         });
+
 
         return viewGroup;
     }
