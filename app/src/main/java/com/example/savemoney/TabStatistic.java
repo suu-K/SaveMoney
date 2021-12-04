@@ -1,5 +1,6 @@
 package com.example.savemoney;
 
+import android.app.DatePickerDialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -7,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +27,10 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class TabStatistic extends Fragment {
     ViewGroup viewGroup;
@@ -32,8 +39,9 @@ public class TabStatistic extends Fragment {
     BarChart barChart;
     MyDBHelper myDBHelper;
     SQLiteDatabase db;
+    TextView dateStart, dateEnd;
 
-    Button btnInsert, btnUpgrade;
+    Button btnMethod, btnDuration, btnCategory, btnDay, btnMonth, btnWeek;
 
     enum Type{ term, category, method };
     Type type = Type.term;
@@ -44,78 +52,139 @@ public class TabStatistic extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.tab_statistic,container,false);
 
-        btnInsert = (Button) viewGroup.findViewById(R.id.btnInsert);
-        btnUpgrade = (Button) viewGroup.findViewById(R.id.btnUpgrade);
+        btnDuration=(Button) viewGroup.findViewById(R.id.btnDuration);
+        btnCategory=(Button) viewGroup.findViewById(R.id.btnCategory);
+        btnMethod=(Button) viewGroup.findViewById(R.id.btnMethod);
+        btnDay=(Button) viewGroup.findViewById(R.id.btnDay);
+        btnMonth=(Button) viewGroup.findViewById(R.id.btnMonth);
+        btnWeek=(Button) viewGroup.findViewById(R.id.btnWeek);
 
         myDBHelper = new MyDBHelper(getActivity());
         barChart = (BarChart) viewGroup.findViewById(R.id.barChart);
 
-        dataSetting(type, term, "2021-01-01", "2021-12-12");             //데이터 세팅
+        dateStart=(TextView) viewGroup.findViewById(R.id.dateStart);
+        dateEnd=(TextView) viewGroup.findViewById(R.id.dateEnd);
+
+        Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        if(mMonth<10){
+            dateStart.setText(mYear+"-0" + (mMonth+1) + "-01");
+            dateEnd.setText(mYear+"-0" + (mMonth+1) + "-31");
+        }
+        else{
+            dateStart.setText(mYear+"-" + (mMonth+1) + "-01");
+            dateEnd.setText(mYear+"-" + (mMonth+1) + "-31");
+        }
+
+        btnMethod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=Type.method;
+                dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
+                BarChartGraph(labelList, valList);
+                barChart.invalidate();
+            }
+        });
+        btnCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=Type.category;
+                dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
+                BarChartGraph(labelList, valList);
+                barChart.invalidate();
+            }
+        });
+        btnDuration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=Type.term;
+                dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
+                BarChartGraph(labelList, valList);
+                barChart.invalidate();
+            }
+        });
+
+        btnDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                term=2;
+                dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
+                BarChartGraph(labelList, valList);
+                barChart.invalidate();
+            }
+        });
+        btnWeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                term=1;
+                dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
+                BarChartGraph(labelList, valList);
+                barChart.invalidate();
+            }
+        });
+        btnMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                term=0;
+                dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
+                BarChartGraph(labelList, valList);
+                barChart.invalidate();
+            }
+        });
+
+        dateStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        if(month<10){
+                            if(dayOfMonth<10) { dateStart.setText(year+"-0" + (month+1) + "-0" + dayOfMonth); }
+                            else {dateStart.setText(year+"-0" + (month+1) + "-" + dayOfMonth);}
+                        }
+                        else {
+                            if(dayOfMonth<10) { dateStart.setText(year+"-" + (month+1) + "-0" + dayOfMonth); }
+                            else {dateStart.setText(year+"-" + (month+1) + "-" + dayOfMonth);}
+                        }
+                        dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
+                        BarChartGraph(labelList, valList);
+                        barChart.invalidate();
+                    }
+                }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+        dateEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        if(month<10){
+                            if(dayOfMonth<10) { dateEnd.setText(year+"-0" + (month+1) + "-0" + dayOfMonth); }
+                            else {dateEnd.setText(year+"-0" + (month+1) + "-" + dayOfMonth);}
+                        }
+                        else {
+                            if(dayOfMonth<10) { dateEnd.setText(year+"-" + (month+1) + "-0" + dayOfMonth); }
+                            else {dateEnd.setText(year+"-" + (month+1) + "-" + dayOfMonth);}
+                        }
+                        dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
+                        BarChartGraph(labelList, valList);
+                        barChart.invalidate();
+                    }
+                }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+
+
+       // dataSetting(type, term, "2021-01-01", "2021-12-12");             //데이터 세팅
         graphInitSetting();       //그래프 기본 세팅
         BarChartGraph(labelList, valList);
 
-        btnInsert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db = myDBHelper.getWritableDatabase();
-                ArrayList<String> d = new ArrayList<String>();
-                d.add("2021-10-02 00:00:00");
-                d.add("2021-10-02 00:00:00");
-                d.add("2021-10-03 00:00:00");
-                d.add("2021-11-03 00:00:00");
-                d.add("2021-11-01 00:00:00");
-                d.add("2021-11-01 00:00:00");
-                d.add("2021-11-01 00:00:00");
-                d.add("2021-11-10 00:00:00");
-                d.add("2021-12-12 00:00:00");
-                d.add("2021-12-14 00:00:00");
-                ArrayList<String> cate = new ArrayList<String>();
-                cate.add("생활비");
-                cate.add("생활비");
-                cate.add("식비");
-                cate.add("통신비");
-                cate.add("식비");
-                cate.add("품위유지비");
-                cate.add("생활비");
-                cate.add("식비");
-                cate.add("통신비");
-                cate.add("생활비");
-                ArrayList<String> me = new ArrayList<>();
-                me.add("현금");
-                me.add("현금");
-                me.add("신용카드");
-                me.add("현금");
-                me.add("체크카드");
-                me.add("신용카드");
-                me.add("체크카드");
-                me.add("신용카드");
-                me.add("현금");
-                me.add("체크카드");
-                for(int i=0;i<10;i++) {
-                    int amount = (int) (Math.random() * 10000 + 10000);
-                    db.execSQL("INSERT INTO expenses(amount, category, method, date) VALUES(" +
-                            "" + amount + "," +
-                            "'"+ cate.get(i) +"'," +
-                            "'"+ me.get(i) +"'," +
-                            "'" + d.get(i) +
-                            "');");
-                }
-                dataSetting(type, term, "2021-01-01", "2021-12-12");
-                BarChartGraph(labelList, valList);
-                barChart.invalidate();
-            }
-        });
-        btnUpgrade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db = myDBHelper.getWritableDatabase();
-                myDBHelper.onUpgrade(db, 1, 2);
-                db.close();
-                dataSetting(type, term, "2021-01-01", "2021-12-31");
-                BarChartGraph(labelList, valList);
-                barChart.invalidate();
-            }
-        });
 
         return viewGroup;
     }

@@ -29,7 +29,7 @@ public class DialogFixedExpenses extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                name=(EditText) getView().findViewById(R.id.name);
+
                 //num=(EditText) viewGroup.findViewById(R.id.amount);
                         /*db= myHelper.getWritableDatabase();
                         db.execSQL("INSERT into fixedExpenses(name, amount) values('"+fixedExpensesName.getText().toString()+"',"+fixedExpensesNum.getText().toString()+");" );

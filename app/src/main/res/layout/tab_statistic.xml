@@ -16,13 +16,68 @@
             android:textStyle="bold"
             android:text="통계"></TextView>
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/black"></View>
 
     <LinearLayout
-        android:layout_margin="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/dateStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="2dp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:textStyle="bold"
+            android:text="~"
+            android:inputType="date"></TextView>
+        <TextView
+            android:id="@+id/dateEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="2dp"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp">
+        <Button
+            android:id="@+id/btnDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:text="일간"
+            ></Button>
+        <Button
+            android:id="@+id/btnWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:text="주간"
+            ></Button>
+        <Button
+            android:id="@+id/btnMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:text="월간"
+            ></Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp">
@@ -35,16 +90,29 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnInsert"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="입력"/>
+        android:layout_marginLeft="20dp">
+        <Button
+            android:id="@+id/btnDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:text="기간별"/>
 
-    <Button
-        android:id="@+id/btnUpgrade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="초기화"/>
+        <Button
+            android:id="@+id/btnCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:text="항목별"/>
+        <Button
+            android:id="@+id/btnMethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:text="결제 수단별"/>
+    </LinearLayout>
 
 </LinearLayout>

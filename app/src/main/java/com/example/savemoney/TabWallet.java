@@ -32,7 +32,6 @@ public class TabWallet extends Fragment {
     MyDBHelper myHelper;
     SQLiteDatabase db;
 
-
     View dialog;
 
     @Nullable
@@ -51,25 +50,6 @@ public class TabWallet extends Fragment {
 
         myHelper = new MyDBHelper(getActivity());
 
-        /*db= myHelper.getReadableDatabase();
-        Cursor cursorCategory = db.rawQuery("Select * from category", null);
-        ArrayList<String> categoryList = new ArrayList<String>();
-        if(cursorCategory.getCount()==0){
-            categoryList.add("등록된 카테고리가 없습니다.");
-        }else {
-            while (cursorCategory.moveToNext()) {
-                categoryList.add(cursorCategory.getString(1));
-            }
-        }
-
-        db.close();
-
-        final TextView arrayCategory[]=new TextView[categoryList.size()];
-
-        for(int i=0;i<categoryList.size();i++){
-            arrayCategory[i].setText(categoryList.get(i));
-            layoutCategory.addView(arrayCategory[i]);
-        }*/
 
         NumIdealSpend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,8 +115,7 @@ public class TabWallet extends Fragment {
         AddFixedExpenses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFixedExpenses dialogFixedExpenses = new DialogFixedExpenses();
-                dialogFixedExpenses.show(getActivity().getSupportFragmentManager(), "exit");
+
             }
         });
 
