@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/textSpendMoney"
-            android:text="n월 지출액:" />
+            android:text="이번 달 지출액:" />
         <TextView
             android:id="@+id/textSpendMoney"
             android:layout_width="wrap_content"
@@ -30,7 +30,6 @@
             android:textSize="50dp"
             android:text="N원" />
     </RelativeLayout>
-
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -47,4 +46,14 @@
         android:layout_weight="1"
         android:layout_gravity="left"
         android:text="현재 지출액/목표 지출액" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="최근 3달간 지출"/>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/mainChart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 </LinearLayout>
