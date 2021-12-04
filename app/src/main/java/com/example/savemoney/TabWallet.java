@@ -19,10 +19,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class TabWallet extends Fragment {
@@ -33,6 +35,7 @@ public class TabWallet extends Fragment {
     MyDBHelper myHelper;
     SQLiteDatabase db;
 
+    Fragment fragment = this;
 
     View dialog;
 
@@ -52,25 +55,16 @@ public class TabWallet extends Fragment {
 
         myHelper = new MyDBHelper(getActivity());
 
-        /*db= myHelper.getReadableDatabase();
-        Cursor cursorCategory = db.rawQuery("Select * from category", null);
-        ArrayList<String> categoryList = new ArrayList<String>();
-        if(cursorCategory.getCount()==0){
-            categoryList.add("등록된 카테고리가 없습니다.");
-        }else {
-            while (cursorCategory.moveToNext()) {
-                categoryList.add(cursorCategory.getString(1));
-            }
+        db = myHelper.getReadableDatabase();
+
+        onCreateCategory();
+        onCreateMethod();
+        onCreateFixedExpenses();
+
+        Cursor tmp = db.rawQuery("SELECT * FROM user", null);
+        while(tmp.moveToNext()){
+            NumIdealSpend.setText(tmp.getString(1).toString() + " 원");
         }
-
-        db.close();
-
-        final TextView arrayCategory[]=new TextView[categoryList.size()];
-
-        for(int i=0;i<categoryList.size();i++){
-            arrayCategory[i].setText(categoryList.get(i));
-            layoutCategory.addView(arrayCategory[i]);
-        }*/
 
         NumIdealSpend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +78,9 @@ public class TabWallet extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         try {
                             int num = Integer.parseInt(editText.getText().toString());
-                            Toast.makeText(getActivity(), "변경되었습니다.", Toast.LENGTH_SHORT).show();
+                            db = myHelper.getWritableDatabase();
+                            db.execSQL("INSERT into user(goal) values('" + editText.getText().toString() + "');");
+                            db.close();
                             NumIdealSpend.setText(editText.getText().toString() + " 원");
                         } catch (NumberFormatException e) {
                             Toast.makeText(getActivity(), "숫자만 입력하세요.", Toast.LENGTH_SHORT).show();
@@ -108,6 +104,31 @@ public class TabWallet extends Fragment {
                         db = myHelper.getWritableDatabase();
                         db.execSQL("INSERT into category(name) values('" + editText.getText().toString() + "');");
                         db.close();
+
+                        TextView newView = new TextView(getActivity());
+                        newView.setText(editText.getText().toString());
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        params.topMargin = 10;
+                        newView.setLayoutParams(params);
+                        newView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                AlertDialog.Builder dlgCategory = new AlertDialog.Builder(getActivity());
+                                dlgCategory.setMessage("삭제하시겠습니까?");
+                                dlgCategory.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        db = myHelper.getWritableDatabase();
+                                        db.execSQL("DELETE FROM category WHERE name = '" + editText.getText().toString() + "';");
+                                        db.close();
+                                        layoutCategory.removeView(newView);
+                                    }
+                                });
+                                dlgCategory.setNegativeButton("취소", null);
+                                dlgCategory.show();
+                            }
+                        });
+                        layoutCategory.addView(newView);
                     }
                 });
                 dlgCategory.show();
@@ -124,6 +145,31 @@ public class TabWallet extends Fragment {
                             db = myHelper.getWritableDatabase();
                             db.execSQL("INSERT into card(name, isCredit) values('" + name + "', '" + kinds + "');");
                             db.close();
+
+                            TextView newView = new TextView(getActivity());
+                            newView.setText(name + " - " + kinds);
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            params.topMargin = 10;
+                            newView.setLayoutParams(params);
+                            newView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    AlertDialog.Builder dlgCategory = new AlertDialog.Builder(getActivity());
+                                    dlgCategory.setMessage("삭제하시겠습니까?");
+                                    dlgCategory.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            db = myHelper.getWritableDatabase();
+                                            db.execSQL("DELETE FROM card WHERE name = '" + name + "';");
+                                            db.close();
+                                            layoutMethod.removeView(newView);
+                                        }
+                                    });
+                                    dlgCategory.setNegativeButton("취소", null);
+                                    dlgCategory.show();
+                                }
+                            });
+                            layoutMethod.addView(newView);
                         }
                         else{
                             AddMethod.setText("실패");
@@ -144,6 +190,31 @@ public class TabWallet extends Fragment {
                             db = myHelper.getWritableDatabase();
                             db.execSQL("INSERT into fixedExpenses(name, amount) values('" + name + "', " + amount + ");");
                             db.close();
+
+                            TextView newView = new TextView(getActivity());
+                            newView.setText(name + " - " + amount + "원");
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            params.topMargin = 10;
+                            newView.setLayoutParams(params);
+                            newView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    AlertDialog.Builder dlgCategory = new AlertDialog.Builder(getActivity());
+                                    dlgCategory.setMessage("삭제하시겠습니까?");
+                                    dlgCategory.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            db = myHelper.getWritableDatabase();
+                                            db.execSQL("DELETE FROM fixedExpenses WHERE name = '" + name + "';");
+                                            db.close();
+                                            layoutFixedExpenses.removeView(newView);
+                                        }
+                                    });
+                                    dlgCategory.setNegativeButton("취소", null);
+                                    dlgCategory.show();
+                                }
+                            });
+                            layoutFixedExpenses.addView(newView);
                         }
                         else
                             AddFixedExpenses.setText("실패");
@@ -152,8 +223,109 @@ public class TabWallet extends Fragment {
                 dialog.show(getFragmentManager(), "addDialog");
             }
         });
-
-
         return viewGroup;
     }
+
+    public void onCreateCategory(){
+        layoutCategory.removeAllViews();
+        Cursor categoryCursor = db.rawQuery("SELECT * FROM category", null);
+        while(categoryCursor.moveToNext()){
+            int id = categoryCursor.getInt(0);
+            String str = categoryCursor.getString(1);
+
+            TextView newView = new TextView(getActivity());
+            newView.setText(str);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.topMargin = 10;
+            newView.setLayoutParams(params);
+            newView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder dlgCategory = new AlertDialog.Builder(getActivity());
+                    dlgCategory.setMessage("삭제하시겠습니까?");
+                    dlgCategory.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            db = myHelper.getWritableDatabase();
+                            db.execSQL("DELETE FROM category WHERE name = '" + str + "';");
+                            db.close();
+                            layoutCategory.removeView(newView);
+                        }
+                    });
+                    dlgCategory.setNegativeButton("취소", null);
+                    dlgCategory.show();
+                }
+            });
+            layoutCategory.addView(newView);
+        }
+    }
+
+    public void onCreateMethod(){
+        layoutMethod.removeAllViews();
+        Cursor methodCursor = db.rawQuery("SELECT * FROM card", null);
+        while(methodCursor.moveToNext()){
+            int id = methodCursor.getInt(0);
+            String str = methodCursor.getString(1) + " - " + methodCursor.getString(2);
+
+            TextView newView = new TextView(getActivity());
+            newView.setText(str);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.topMargin = 10;
+            newView.setLayoutParams(params);
+            newView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder dlgCategory = new AlertDialog.Builder(getActivity());
+                    dlgCategory.setMessage("삭제하시겠습니까?");
+                    dlgCategory.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            db = myHelper.getWritableDatabase();
+                            db.execSQL("DELETE FROM card WHERE id = " + id + ";");
+                            db.close();
+                            layoutMethod.removeView(newView);
+                        }
+                    });
+                    dlgCategory.setNegativeButton("취소", null);
+                    dlgCategory.show();
+                }
+            });
+            layoutMethod.addView(newView);
+        }
+    }
+
+    public void onCreateFixedExpenses(){
+        layoutFixedExpenses.removeAllViews();
+        Cursor fixedCursor = db.rawQuery("SELECT * FROM fixedExpenses", null);
+        while(fixedCursor.moveToNext()){
+            int id = fixedCursor.getInt(0);
+            String str = fixedCursor.getString(1) + " - " + fixedCursor.getInt(2) + "원";
+
+            TextView newView = new TextView(getActivity());
+            newView.setText(str);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.topMargin = 10;
+            newView.setLayoutParams(params);
+            newView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder dlgCategory = new AlertDialog.Builder(getActivity());
+                    dlgCategory.setMessage("삭제하시겠습니까?");
+                    dlgCategory.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            db = myHelper.getWritableDatabase();
+                            db.execSQL("DELETE FROM fixedExpenses WHERE id = " + id + ";");
+                            db.close();
+                            layoutFixedExpenses.removeView(newView);
+                        }
+                    });
+                    dlgCategory.setNegativeButton("취소", null);
+                    dlgCategory.show();
+                }
+            });
+            layoutFixedExpenses.addView(newView);
+        }
+    }
+
 }

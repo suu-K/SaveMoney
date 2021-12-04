@@ -91,7 +91,7 @@ public class TabMain extends Fragment {
 
         Cursor cursor;
         cursor = db.rawQuery("SELECT strftime('%Y-%m', date) as month, sum(amount) as sum FROM expenses " +
-                "WHERE strftime('%Y-%m', date) BETWEEN strftime('%Y-%m', 'now', '-4 months') AND strftime('%Y-%m', 'now', 'localtime') " +
+                "WHERE strftime('%Y-%m', date) BETWEEN strftime('%Y-%m', 'now', '-3 months') AND strftime('%Y-%m', 'now', 'localtime') " +
                 "GROUP BY month;", null);
 
         Cursor cursorMax = db.rawQuery("SELECT sum(amount) FROM fixedExpenses", null);
@@ -115,16 +115,19 @@ public class TabMain extends Fragment {
         barChart.setDrawGridBackground(false);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         barChart.getXAxis().setDrawGridLines(false);
+        barChart.getDescription().setEnabled(false);
     }
 
     private void BarChartGraph(ArrayList<String> labelList, ArrayList<Integer> valList) {
         barChart.clear();
         int max = 0;
+        int min = Integer.MAX_VALUE;
         // BarChart 메소드
         ArrayList<BarEntry> entries = new ArrayList<>();
         for (int i = 0; i < valList.size(); i++) {
             entries.add(new BarEntry(i, (Integer) valList.get(i)));
             max = Math.max(max, valList.get(i));
+            min = Math.min(min, valList.get(i));
         }
 
         BarDataSet dataSet = new BarDataSet(entries, "일일 사용시간"); // 변수로 받아서 넣어줘도 됨
@@ -142,6 +145,7 @@ public class TabMain extends Fragment {
         barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
         barChart.setAutoScaleMinMaxEnabled(true);
         barChart.getAxisLeft().setAxisMaximum((float) (max * 1.1));
+        barChart.getAxisLeft().setAxisMinimum((float) (min * 0.7));
         barChart.getAxisRight().setEnabled(false);
         barChart.setData(data);
         barChart.animateXY(1000, 1000);
