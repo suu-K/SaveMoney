@@ -57,11 +57,23 @@
                     android:orientation="vertical"
                     android:background="@drawable/round_border"
                     android:padding="10dp"
-                    android:layout_marginTop="20dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="목표 소비 금액"></TextView>
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/layoutCategory">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="항목"></TextView>
+                        <TextView
+                            android:id="@+id/AddCategory"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="추가"></TextView>
+                    </RelativeLayout>
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -69,11 +81,22 @@
                     android:orientation="vertical"
                     android:background="@drawable/round_border"
                     android:padding="10dp"
-                    android:layout_marginTop="20dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="결제 수단"></TextView>
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/layoutMethod">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="결제수단"></TextView>
+                        <TextView
+                            android:id="@+id/AddMethod"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="추가"></TextView>
+                    </RelativeLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -81,11 +104,22 @@
                     android:orientation="vertical"
                     android:background="@drawable/round_border"
                     android:padding="10dp"
-                    android:layout_marginTop="20dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="고정지출"></TextView>
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/layoutFixedExpenses">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="고정 지출"></TextView>
+                        <TextView
+                            android:id="@+id/AddFixedExpenses"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="추가"></TextView>
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

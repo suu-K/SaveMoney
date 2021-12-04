@@ -69,12 +69,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="20dp"
-                android:text="소비금액" />
+                android:hint="소비금액" />
             <EditText
                 android:id="@+id/edtMemo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="*상세 내용" />
+                android:hint="*상세 내용" />
         </LinearLayout>
 
         <LinearLayout
