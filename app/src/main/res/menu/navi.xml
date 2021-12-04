@@ -8,7 +8,7 @@
         app:showAsAction="always"
         android:enabled="true"
         android:checked="true"
-        android:icon="@drawable/main_list_icon"
+        android:icon="@drawable/ic_baseline_home_24"
         android:title="메인" />
 
     <item
@@ -16,7 +16,7 @@
         app:showAsAction="always"
         android:enabled="true"
         android:checked="true"
-        android:icon="@drawable/main_list_icon"
+        android:icon="@drawable/ic_baseline_credit_card_24"
         android:title="지출" />
 
     <item
@@ -24,7 +24,7 @@
         app:showAsAction="always"
         android:enabled="true"
         android:checked="true"
-        android:icon="@drawable/main_list_icon"
+        android:icon="@drawable/ic_baseline_equalizer_24"
         android:title="통계" />
 
     <item
@@ -32,7 +32,7 @@
         app:showAsAction="always"
         android:enabled="true"
         android:checked="true"
-        android:icon="@drawable/main_list_icon"
+        android:icon="@drawable/ic_baseline_account_balance_wallet_24"
         android:title="지갑" />
 
     <item
@@ -40,6 +40,6 @@
         app:showAsAction="always"
         android:enabled="true"
         android:checked="true"
-        android:icon="@drawable/main_list_icon"
+        android:icon="@drawable/ic_baseline_settings_24"
         android:title="설정" />
 </menu>

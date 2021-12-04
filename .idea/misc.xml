@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/SaveMoney/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26481481481481484" />
+        <entry key="..\:/SaveMoney/app/src/main/res/drawable/home_icon.xml" value="0.26481481481481484" />
+        <entry key="..\:/SaveMoney/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.26481481481481484" />
+        <entry key="..\:/SaveMoney/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26481481481481484" />
         <entry key="..\:/SaveMoney/app/src/main/res/drawable/round_border.xml" value="0.5979166666666667" />
         <entry key="..\:/SaveMoney/app/src/main/res/layout/activity_main.xml" value="0.44959473150962515" />
         <entry key="..\:/SaveMoney/app/src/main/res/layout/tab_expenses.xml" value="0.44959473150962515" />
@@ -10,6 +14,7 @@
         <entry key="..\:/SaveMoney/app/src/main/res/layout/tab_setting.xml" value="0.44959473150962515" />
         <entry key="..\:/SaveMoney/app/src/main/res/layout/tab_statistic.xml" value="0.44959473150962515" />
         <entry key="..\:/SaveMoney/app/src/main/res/layout/tab_wallet.xml" value="0.44959473150962515" />
+        <entry key="..\:/SaveMoney/app/src/main/res/menu/navi.xml" value="0.1" />
         <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/drawable/item_colot.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/font/font.xml" value="0.3963541666666667" />
         <entry key="..\:/Users/kswck/AndroidStudioProjects/SaveMoney/app/src/main/res/font/font_custom.xml" value="0.3963541666666667" />
