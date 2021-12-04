@@ -67,7 +67,7 @@ public class TabExpenses extends Fragment {
                 categoryList.add(cursorCategory.getString(1));
             }
         }
-        Cursor cursorCreditCard = db.rawQuery("Select * from card WHERE isCredit = '신용카드'", null);
+        Cursor cursorCreditCard = db.rawQuery("Select * from card", null);
         ArrayList<String> creditCardList = new ArrayList<String>();
         if(cursorCreditCard.getCount()==0){
             creditCardList.add("등록된 카드가 없습니다.");
@@ -76,19 +76,9 @@ public class TabExpenses extends Fragment {
                 creditCardList.add(cursorCreditCard.getString(1));
             }
         }
-        Cursor cursorDeditCard = db.rawQuery("Select * from card WHERE isCredit = '체크카드'", null);
-        ArrayList<String> cardList = new ArrayList<String>();
-        if(cursorCreditCard.getCount()==0){
-            cardList.add("등록된 카드가 없습니다.");
-        }else {
-            while (cursorCreditCard.moveToNext()) {
-                cardList.add(cursorCreditCard.getString(1));
-            }
-        }
         final String[] installmentList = {"일시불", "2개월(무이자)", "3개월(무이자)", "4개월(무이자)", "5개월(무이자)", "6개월(무이자)", "2개월","3개월","4개월","5개월","6개월","12개월","24개월"};
         ArrayAdapter<String> adapterCategory = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categoryList);
         ArrayAdapter<String> adapterCredit = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, creditCardList);
-        ArrayAdapter<String> adapterDebit = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, creditCardList);
         ArrayAdapter<String> adapterInstallment = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, installmentList);
         spinnerCategory.setAdapter(adapterCategory);
         spinnerCard.setAdapter(adapterCredit);
@@ -109,7 +99,6 @@ public class TabExpenses extends Fragment {
         btnDebit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spinnerCard.setAdapter(adapterDebit);
                 method = "체크카드";
                 installmentPeriod = 1;
                 interest = 0;
@@ -121,7 +110,6 @@ public class TabExpenses extends Fragment {
         btnCredit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spinnerCard.setAdapter(adapterCredit);
                 method = "신용카드";
                 interest = -1;
                 spinnerCard.setVisibility(View.VISIBLE);

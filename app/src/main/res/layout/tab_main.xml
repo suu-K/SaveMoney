@@ -50,7 +50,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="최근 3달간 지출"/>
+        android:text="최근 4달간 지출"/>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/mainChart"
