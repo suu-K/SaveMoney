@@ -30,12 +30,12 @@ public class DialogFixedExpenses extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
 
                 name=(EditText) getView().findViewById(R.id.name);
-                num=(EditText) viewGroup.findViewById(R.id.amount);
+                //num=(EditText) viewGroup.findViewById(R.id.amount);
                         /*db= myHelper.getWritableDatabase();
                         db.execSQL("INSERT into fixedExpenses(name, amount) values('"+fixedExpensesName.getText().toString()+"',"+fixedExpensesNum.getText().toString()+");" );
                         db.close();
                 NumIdealSpend.setText(fixedExpensesName.getText().toString());
-                Toast.makeText(getActivity(),"변경되었습니다.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"변경되었습니다.",Toast.LENGTH_LONG).show();*/
 
             }
         });
