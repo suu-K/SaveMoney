@@ -1,5 +1,6 @@
 package com.example.savemoney;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class TabMain extends Fragment {
     int spend = 0;
     int goal = 0;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,8 +62,9 @@ public class TabMain extends Fragment {
         while(cursor.moveToNext()){
             spend = cursor.getInt(1);
         }
-        cursor.close();
         textSpendMoney.setText(spend+"원");
+        cursor.close();
+
 
         cursor = db.rawQuery("SELECT goal FROM user", null);
         while(cursor.moveToNext()){
@@ -71,10 +74,15 @@ public class TabMain extends Fragment {
         textProgressBar.setText(spend+"/"+goal);
         db.close();
 
-        if(goal == 0)
+
+        if(goal == 0){
+            progressBar.setMax(100);
             progressBar.setProgress(100);
-        else
-            progressBar.setProgress((int)(100 * spend/goal));
+        }
+        else {
+            progressBar.setMax(goal);
+            progressBar.setProgress(spend);
+        }
 
         dataSetting();
         graphInitSetting();
@@ -130,7 +138,7 @@ public class TabMain extends Fragment {
             min = Math.min(min, valList.get(i));
         }
 
-        BarDataSet dataSet = new BarDataSet(entries, "일일 사용시간"); // 변수로 받아서 넣어줘도 됨
+        BarDataSet dataSet = new BarDataSet(entries, "지출"); // 변수로 받아서 넣어줘도 됨
         dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
         ArrayList<String> labels = new ArrayList<String>();
