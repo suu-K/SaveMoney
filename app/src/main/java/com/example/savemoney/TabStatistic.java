@@ -86,6 +86,9 @@ public class TabStatistic extends Fragment {
                 dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
                 BarChartGraph(labelList, valList);
                 barChart.invalidate();
+                btnDay.setVisibility(View.INVISIBLE);
+                btnWeek.setVisibility(View.INVISIBLE);
+                btnMonth.setVisibility(View.INVISIBLE);
             }
         });
         btnCategory.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +98,9 @@ public class TabStatistic extends Fragment {
                 dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
                 BarChartGraph(labelList, valList);
                 barChart.invalidate();
+                btnDay.setVisibility(View.INVISIBLE);
+                btnWeek.setVisibility(View.INVISIBLE);
+                btnMonth.setVisibility(View.INVISIBLE);
             }
         });
         btnDuration.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +110,9 @@ public class TabStatistic extends Fragment {
                 dataSetting(type, term, dateStart.getText().toString(), dateEnd.getText().toString());
                 BarChartGraph(labelList, valList);
                 barChart.invalidate();
+                btnDay.setVisibility(View.VISIBLE);
+                btnWeek.setVisibility(View.VISIBLE);
+                btnMonth.setVisibility(View.VISIBLE);
             }
         });
 

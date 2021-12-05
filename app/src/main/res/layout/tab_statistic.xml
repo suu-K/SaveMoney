@@ -54,26 +54,24 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp">
         <Button
-            android:id="@+id/btnDay"
+            android:id="@+id/btnDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="2dp"
-            android:text="일간"
-            ></Button>
+            android:text="기간별"/>
+
         <Button
-            android:id="@+id/btnWeek"
+            android:id="@+id/btnCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="2dp"
-            android:text="주간"
-            ></Button>
+            android:text="항목별"/>
         <Button
-            android:id="@+id/btnMonth"
+            android:id="@+id/btnMethod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="2dp"
-            android:text="월간"
-            ></Button>
+            android:text="결제 수단별"/>
     </LinearLayout>
 
     <LinearLayout
@@ -94,25 +92,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp">
-        <Button
-            android:id="@+id/btnDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="2dp"
-            android:text="기간별"/>
 
         <Button
-            android:id="@+id/btnCategory"
+            android:id="@+id/btnDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="2dp"
-            android:text="항목별"/>
+            android:text="일간"
+            ></Button>
         <Button
-            android:id="@+id/btnMethod"
+            android:id="@+id/btnWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="2dp"
-            android:text="결제 수단별"/>
+            android:text="주간"
+            ></Button>
+        <Button
+            android:id="@+id/btnMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:text="월간"
+            ></Button>
     </LinearLayout>
 
 </LinearLayout>
